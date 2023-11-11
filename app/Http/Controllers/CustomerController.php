@@ -36,10 +36,7 @@ class CustomerController extends Controller
             'nama' => $request->nama,
             'alamat' => $request->alamat,
             'telp' => $request->telp,
-            'idcard' => $request->idcard
-
-
-            
+            'idcard' => $request->idcard   
         ]);
 
         // dd($customer);

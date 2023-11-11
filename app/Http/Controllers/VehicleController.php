@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreVehicleRequest;
 use App\Http\Requests\UpdateVehicleRequest;
 use App\Models\Vehicle;
+use Illuminate\Http\Request;
 
 class VehicleController extends Controller
 {
@@ -13,7 +14,8 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        //
+        $vehicles = Vehicle::all();
+        return view('showVehicle',compact('vehicles'));
     }
 
     /**
@@ -21,30 +23,30 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        //
+        return view ('addVehicle');
     }
-
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreVehicleRequest $request)
+    public function store(Request $request)
     {
-        $vehicle = new Vehicle([
-            'tipe' => $request->get('tipe'),
-            'model' => $request->get('model'),
-            'tahun' => $request->get('tahun'),
-            'jumlahPenumpang' => $request->get('jumlahPenumpang'),
-            'manufaktur' => $request->get('manufaktur'),
-            'harga' => $request->get('harga'),
-            'tipeBahanBakar' => $request->get('tipeBahanBakar'),
-            'luasKargo' => $request->get('luasKargo'),
-            'ukuranBagasi' => $request->get('ukuranBagasi'),
-            'kapasitasBahanBakar' => $request->get('kapasitasBahanBakar')
+
+        Vehicle::create([
+            'tipe' => $request->tipe,
+            'model' => $request->model,
+            'tahun' => $request->tahun,
+            'jumlahPenumpang' => $request->jumlahPenumpang,
+            'manufaktur' => $request->manufaktur,
+            'harga' => $request->harga,
+            'tipeBahanBakar' => $request->tipeBahanBakar,
+            'luasKargo' => $request->luasKargo,
+            'ukuranBagasi' => $request->ukuranBagasi,
+            'kapasitasBahanBakar' => $request->kapasitasBahanBakar
         ]);
+        
 
-        $vehicle->save();
 
-        return redirect('/vehicles')->with('success', 'Kendaraan berhasil di simpan');
+        return redirect('/vehicles');
     }
 
     /**
@@ -52,9 +54,9 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
-        $vehicle = Vehicle::find($vehicle);
+        // $vehicle = Vehicle::find($vehicle);
 
-        return view('vehicles.show', compact('vehicle'));
+        return view('showVehicle');
     }
 
     /**
@@ -70,7 +72,7 @@ class VehicleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateVehicleRequest $request, Vehicle $vehicle)
+    public function update(Request $request, Vehicle $vehicle)
     {
         //
     }

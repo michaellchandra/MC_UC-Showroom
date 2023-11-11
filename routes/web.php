@@ -31,7 +31,10 @@ Route::get('/customers',[CustomerController::class, 'index']);
 Route::get('/editcustomer',[CustomerController::class, 'edit']);
 Route::post('/updatecustomer',[CustomerController::class, 'update']);
 
-Route::get('/addvehicle',[VehicleController::class, 'index']);
+Route::get('/addvehicle',[VehicleController::class, 'create']);
+Route::post('/vehiclesubmit',[VehicleController::class,'store']);
+Route::get('/vehicles',[VehicleController::class, 'index']);
+
 Route::post('/ordersubmit',[OrderController::class,'store']);
 
 

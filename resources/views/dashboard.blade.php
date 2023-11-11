@@ -13,40 +13,46 @@
 
         <!-- Content Row -->
         <div class="row">
-            <div class="table-responsive">
-                <table class="table table-striped" >
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Type</th>
-                            <th>Model</th>
-                            <th>Year</th>
-                            <th>Passengers</th>
-                            <th>Manufacturer</th>
-                            <th>Price</th>
-                            <th>Fuel Type</th>
-                            <th>Cargo Area</th>
-                            <th>Baggage Size</th>
-                            <th>Fuel Capacity</th>
-                        </tr>
-                    </thead>
+             
+             <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <!-- Customer-->
+                    <a href="/customers">
+                        <div class="card-body mb-3">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+    
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">DATA CUSTOMER</div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </a>
 
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mobil</td>
-                            <td>Avanza</td>
-                            <td>2022</td>
-                            <td>7</td>
-                            <td>Toyota</td>
-                            <td>200000000</td>
-                            <td>Pertamax</td>
-                            <td>2.5</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <!-- Vehicle-->
+                    <a href="/vehicles">
+                        <div class="card-body mb-3">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+    
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">DATA KENDARAAN</div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </a>
+                    
+                </div>
             </div>
         </div>
 
