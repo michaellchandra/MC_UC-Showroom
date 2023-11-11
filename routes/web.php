@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +17,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard',[
-        'title' =>'Home'
-    ]);
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [DashboardController::class, 'index'] );
+
+Route::get('/addorder',[OrderController::class,'index']);
+
+Route::get('/addcustomer',[CustomerController::class,'create']);
+Route::post('/customersubmit',[CustomerController::class,'store']);
+Route::get('/customers',[CustomerController::class, 'index']);
+Route::get('/editcustomer',[CustomerController::class, 'edit']);
+Route::post('/updatecustomer',[CustomerController::class, 'update']);
+
+Route::get('/addvehicle',[VehicleController::class, 'index']);
+Route::post('/ordersubmit',[OrderController::class,'store']);
+
+
 
 

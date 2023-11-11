@@ -11,6 +11,6 @@ class Customer extends Model
         'nama', 
         'alamat', 
         'telp',
-        'idCard'
+        'idcard'
     ];
 }

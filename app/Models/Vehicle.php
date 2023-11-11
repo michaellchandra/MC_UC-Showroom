@@ -20,5 +20,8 @@ class Vehicle extends Model
         'kapasitasBahanBakar'
     ];
 
-    
+    public function orders() {
+        return $this->hasMany(Order::class);
+    }
+
 }

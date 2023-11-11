@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
+use App\Models\Customer;
+use App\Models\Vehicle;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -13,7 +16,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return view('addOrder');
     }
 
     /**
@@ -21,15 +24,27 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $customers = Customer::all();
+        $vehicles = Vehicle::all();
+
+        return view('orders.create', compact('customers', 'vehicles'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreOrderRequest $request)
+    public function store(Request $request)
     {
-        //
+        $order = new Order([
+            'ID Customer' => $request->get('customer_id'),
+            'ID Vehicle' => $request->get('vehicle_id'),
+            'Jumlah' => $request->get('quantity'),
+            'Total Harga' => $request->get('total_price')
+        ]);
+
+        $order->save();
+
+        return redirect('/orders')->with('success', 'Order ditambahkan');
     }
 
     /**
@@ -37,7 +52,9 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        $order = Order::find($order);
+
+        return view('orders.show', compact('order'));
     }
 
     /**
@@ -45,7 +62,11 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+        $order = Order::find($order);
+        $customers = Customer::all();
+        $vehicles = Vehicle::all();
+
+        return view('orders.edit', compact('order', 'customers', 'vehicles'));
     }
 
     /**
@@ -53,7 +74,8 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
-        //
+        $order = Order::find($order);
+
     }
 
     /**
@@ -61,6 +83,9 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $order = Order::find($order);
+        $order->delete();
+
+        return redirect('/orders')->with('success', 'Order berhasil dihapus');
     }
 }

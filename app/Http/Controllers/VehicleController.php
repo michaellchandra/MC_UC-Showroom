@@ -29,7 +29,22 @@ class VehicleController extends Controller
      */
     public function store(StoreVehicleRequest $request)
     {
-        //
+        $vehicle = new Vehicle([
+            'tipe' => $request->get('tipe'),
+            'model' => $request->get('model'),
+            'tahun' => $request->get('tahun'),
+            'jumlahPenumpang' => $request->get('jumlahPenumpang'),
+            'manufaktur' => $request->get('manufaktur'),
+            'harga' => $request->get('harga'),
+            'tipeBahanBakar' => $request->get('tipeBahanBakar'),
+            'luasKargo' => $request->get('luasKargo'),
+            'ukuranBagasi' => $request->get('ukuranBagasi'),
+            'kapasitasBahanBakar' => $request->get('kapasitasBahanBakar')
+        ]);
+
+        $vehicle->save();
+
+        return redirect('/vehicles')->with('success', 'Kendaraan berhasil di simpan');
     }
 
     /**
@@ -37,7 +52,9 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
-        //
+        $vehicle = Vehicle::find($vehicle);
+
+        return view('vehicles.show', compact('vehicle'));
     }
 
     /**
@@ -45,7 +62,9 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
-        //
+        $vehicle = Vehicle::find($vehicle);
+
+        return view('vehicles.edit', compact('vehicle'));
     }
 
     /**
