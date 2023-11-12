@@ -16,7 +16,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('addOrder');
+        
+        $orders = Order::all();
+        return view('showOrder', compact('orders'));
     }
 
     /**
@@ -24,10 +26,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $customers = Customer::all();
-        $vehicles = Vehicle::all();
+        return view('addOrder');
 
-        return view('orders.create', compact('customers', 'vehicles'));
     }
 
     /**
@@ -36,56 +36,55 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $order = new Order([
-            'ID Customer' => $request->get('customer_id'),
-            'ID Vehicle' => $request->get('vehicle_id'),
-            'Jumlah' => $request->get('quantity'),
-            'Total Harga' => $request->get('total_price')
+            'id_kendaraan' => $request->get('id_kendaraan'),
+            'id_customer' => $request->get('id_customer'),
+            'jumlah_kendaraan' => $request->get('jumlah_kendaraan'),
+            'total_biaya' => $request->get('total_biaya')
         ]);
-
         $order->save();
-
-        return redirect('/orders')->with('success', 'Order ditambahkan');
+        return redirect('/orders')->with('success', 'Order has been added');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Order $order)
+    public function show($id)
     {
-        $order = Order::find($order);
-
-        return view('orders.show', compact('order'));
+        $order = Order::find($id);
+        return view('showOrder', compact('order'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Order $order)
+    public function edit($id)
     {
-        $order = Order::find($order);
-        $customers = Customer::all();
-        $vehicles = Vehicle::all();
-
-        return view('orders.edit', compact('order', 'customers', 'vehicles'));
+        $order = Order::find($id);
+        return view('orders.edit', compact('order'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOrderRequest $request, Order $order)
+    public function update(Request $request,$id)
     {
-        $order = Order::find($order);
+        $order = Order::find($id);
+        $order->id_kendaraan = $request->get('id_kendaraan');
+        $order->id_customer = $request->get('id_customer');
+        $order->jumlahKendaraan = $request->get('jumlahKendaraan');
+        $order->total_biaya = $request->get('totalBiaya');
+        $order->save();
+        return redirect('/orders')->with('success', 'Order has been updated');
 
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Order $order)
+    public function destroy($id)
     {
-        $order = Order::find($order);
+        $order = Order::find($id);
         $order->delete();
-
-        return redirect('/orders')->with('success', 'Order berhasil dihapus');
+        return redirect('/orders')->with('success', 'Order has been deleted Successfully');
     }
 }

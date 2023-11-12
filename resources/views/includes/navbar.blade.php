@@ -23,6 +23,12 @@
                 <span>Add Vehicle</span></a>
         </li>
 
+        <li class="nav-item active">
+            <a class="nav-link" href="/addorder">
+                <i class="fas fa-fw fa-car"></i>
+                <span>Add Order</span></a>
+        </li>
+
 
         <!-- Divider -->
         <hr class="sidebar-divider">

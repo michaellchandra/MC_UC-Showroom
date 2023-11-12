@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use App\Http\Controllers\VehicleController;
 
 class CustomerController extends Controller
 {
@@ -16,7 +17,7 @@ class CustomerController extends Controller
     {
         $customers = Customer::all();
 
-        return view('showCustomer',compact('customers'));
+        return view('showCustomer', compact('customers'));
     }
 
     /**
@@ -24,7 +25,8 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('addCustomer');
+        $customers =Customer::all();
+        return view('addCustomer')->with('customers',$customers);
     }
 
     /**
@@ -36,7 +38,7 @@ class CustomerController extends Controller
             'nama' => $request->nama,
             'alamat' => $request->alamat,
             'telp' => $request->telp,
-            'idcard' => $request->idcard   
+            'idcard' => $request->idcard
         ]);
 
         // dd($customer);
@@ -50,43 +52,52 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Customer $customer)
+    public function show(Customer $customers)
     {
         // $customers = Customer::show($customer);
 
-        return view('showCustomer');
+        return view('showCustomer', compact('customers'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Customer $customer)
+    public function edit(Customer $id)
     {
-        $customer = Customer::find($customer);
+        $customers = Customer::find($id);
 
-        return view('editCustomer', compact('customer'));
+        return view('editCustomer', compact('customers'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, Customer $id)
     {
-        $customer = Customer::find($customer);
-        $customer->nama = $request->get('nama');
-        $customer->alamat = $request->get('alamat');
-        $customer->telp = $request->get('telp');
-        $customer->idcard = $request->get('idcard');
-        $customer->save();
+        $customers = Customer::find($id);
+        $customers->nama = $request->nama;
+        $customers->alamat = $request->alamat;
+        $customers->telp = $request->telp;
+        $customers->idcard = $request->idcard;
+        $customers->save();
 
-        return redirect('/customers')->with('success', 'Customer has been updated');
+        return redirect('/customers', compact('customers'))->with('success', 'Customer has been updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Customer $customer)
+    public function destroy($id)
     {
-        //
+
+        $customers = Customer::findOrFail($id);
+
+        //  Storage::delete('public/vehicles/' . $vehicle->image);
+
+        // Delete customer
+        $customers->delete();
+
+        // Redirect to index
+        return redirect('/customers',compact('customers') )->with(['success' => 'Data Berhasil Dihapus']);
     }
 }
