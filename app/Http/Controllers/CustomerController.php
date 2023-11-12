@@ -46,7 +46,7 @@ class CustomerController extends Controller
         // $newCustomer = Customer::create($customer);
 
 
-        return redirect('/customers');
+        return redirect('/customers', compact('customer'));
     }
 
     /**

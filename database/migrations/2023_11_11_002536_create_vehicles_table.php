@@ -23,6 +23,7 @@ return new class extends Migration
             $table->float('luasKargo')->nullable();
             $table->float('ukuranBagasi')->nullable();
             $table->float('kapasitasBahanBakar')->nullable();
+            $table->string('imageURL');
             $table->timestamps();
 
         });

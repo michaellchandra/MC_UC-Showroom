@@ -32,7 +32,7 @@ class VehicleController extends Controller
     public function store(Request $request)
     {
 
-        $vehicle = new Vehicle([
+        Vehicle::create([
             'tipe' => $request->tipe,
             'model' => $request->model,
             'tahun' => $request->tahun,
@@ -44,7 +44,7 @@ class VehicleController extends Controller
             'ukuranBagasi' => $request->ukuranBagasi,
             'kapasitasBahanBakar' => $request->kapasitasBahanBakar
         ]);
-        return redirect('/vehicles',compact('vehicle'));
+        return redirect('/vehicles',compact('vehicles'));
     }
 
     /**
